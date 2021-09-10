@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>SNS - 로그인 </title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<title>SNS - 회원가입</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 		
 		<!--  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
@@ -17,61 +17,52 @@
 
 </head>
 <body>
-	<div id="wrap" class="">
-		
-		<!--<c:import url="/WEB-INF/jsp/include/header.jsp" />  -->
-		<!-- 네네 bootstrap 에 border 라고 하는
-		class 가 있습니다
-		해당 키워드로 검색하면 예제도 잘나와 있으니 참조하시면 좋을거 같아요
-		겉을 감싸는 div 에 해당 클래스를 추가하면 될거에요
-		
-		 
-		 -->
+	<div id="wrap">
+		<!--<c:import url="/WEB-INF/jsp/include/header.jsp" /> -->
 		
 		<section class="content d-flex align-items-center justify-content-center">
 			<div class="">
 				<div class="d-flex align-items-center justify-content-center">
 					<div class="border-box1  border border-secondary d-flex align-items-center justify-content-center">
 						<div class="input-box ">
-							
-							<div class="banner d-flex align-items-center justify-content-center mb-3">
-								<span class="font-weight-bold">Universegram</span>
+					
+					
+							<div class="banner d-flex align-items-center justify-content-center">
+								<span class=" font-weight-bold">Universegram</span>
 							</div>
 							
 							<div class="input-group mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text">🚺</span>
-								</div>
 								<input type="text" class="form-control" placeholder="ID" name="loginId" id="idInput">
-							</div>
-							
-							<div class="input-group mb-5">
-								<div class="input-group-prepend">
-									<span class="input-group-text">🔑</span>
+								<!-- btn-outline-secondary -->
+								<div class="input-group-append">
+									<button class="btn btn-info " type="button" id="idDuplicateCheckBtn">중복확인</button>
 								</div>
-								<input type="password"  class="form-control" placeholder="●●●●" name="password" id="passwordInput">
+								
 							</div>
 							
+							<input type="password"  class="form-control mb-3" placeholder="비밀번호"  name="password" id="passwordInput">
 							
-							<button type="button" class="btn btn-success form-control mb-3" id="logInBtn">로그인</button>
+							<input type="text"  class="form-control mb-3" placeholder="이메일 주소"  name="email" id="emailInput">
+							<input type="text"  class="form-control mb-3" placeholder="이름"  name="name" id="nameInput">
+							<input type="text"  class="form-control mb-4" placeholder="휴대폰 번호"  name="phoneNumber" id="phoneNumberInput">
 							
+							<button type="button" class="btn btn-success form-control mb-3" id="signUpBtn">회원가입</button>
 							
-							
+					
 						</div>
 					</div>
 				</div>
 							
 				<div class="d-flex align-items-center justify-content-center mt-3">
 					<div class="border-box3  border border-secondary d-flex align-items-center justify-content-center">
-						<span class=" ">계정이 없으신가요?<a href="#" > 가입하기</a></span>
+						<span class=" ">계정이 있으신가요?<a href="#" > 로그인</a></span>
 					
 					</div>
 				</div>
 			</div>
 		</section>
-		
+	
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
-		
 	</div>
 </body>
 </html>

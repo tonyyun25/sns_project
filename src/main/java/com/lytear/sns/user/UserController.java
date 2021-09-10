@@ -11,6 +11,11 @@ public class UserController {
 	@GetMapping("/signin_view")
 	public String signinView() {
 		return "user/signIn";
+	} 
+	
+	@GetMapping("signup_view")
+	public String signupView() {
+		return "user/signUp";
 	}
 	
 	

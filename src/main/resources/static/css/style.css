@@ -1,1 +1,38 @@
-@charset "UTF-8";
+#wrap {
+	width: 1200px;
+	height: 800px;
+	margin: auto;
+}
+header {
+	height: 70px;
+}
+
+.content {
+	height: 900px;
+}
+.border-box1{
+	width: 400px;
+	height: 500px;
+}
+.input-box {
+	width: 300px;
+	<!--height를 주면 안 됨 -->
+}
+.banner {
+	height: 100px;
+	font-size: 35px;
+}
+.border-box2{
+	width: 400px;
+	height: 50px;
+}
+
+.border-box3 {
+	width: 400px;
+	height: 80px;
+	
+}
+
+footer {
+	height: 60px;
+}
