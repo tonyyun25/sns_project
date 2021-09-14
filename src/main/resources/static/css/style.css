@@ -16,7 +16,7 @@ header {
 }
 .input-box {
 	width: 300px;
-	<!--height를 주면 안 됨 -->
+	/*height를 주면 안 됨 */
 }
 .banner {
 	height: 100px;

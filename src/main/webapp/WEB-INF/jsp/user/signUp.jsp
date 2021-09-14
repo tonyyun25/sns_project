@@ -31,23 +31,28 @@
 								<span class=" font-weight-bold">Universegram</span>
 							</div>
 							
-							<div class="input-group mb-3">
-								<input type="text" class="form-control" placeholder="ID" name="loginId" id="idInput">
-								<!-- btn-outline-secondary -->
-								<div class="input-group-append">
-									<button class="btn btn-info " type="button" id="idDuplicateCheckBtn">중복확인</button>
+							<form id="signupForm">
+							
+								<div class="input-group mb-3">
+									<input type="text" class="form-control" placeholder="ID" name="loginId" id="idInput">
+									<!-- btn-outline-secondary -->
+									<div class="input-group-append">
+										<button class="btn btn-info " type="button" id="idDuplicateCheckBtn">중복확인</button>
+									</div>
+									
 								</div>
 								
-							</div>
+								<input type="password"  class="form-control mb-3" placeholder="비밀번호"  name="password" id="passwordInput">
+								
+								<input type="password"  class="form-control mb-3" placeholder="비밀번호 확인"  name="passwordConfirm" id="passwordConfirmInput">
+								
+								<input type="text"  class="form-control mb-3" placeholder="이메일 주소"  name="email" id="emailInput">
+								<input type="text"  class="form-control mb-3" placeholder="이름"  name="name" id="nameInput">
+								<input type="text"  class="form-control mb-4" placeholder="휴대폰 번호"  name="phoneNumber" id="phoneNumberInput">
+								
+								<button type="submit" class="btn btn-success form-control mb-3" >회원가입</button>
 							
-							<input type="password"  class="form-control mb-3" placeholder="비밀번호"  name="password" id="passwordInput">
-							
-							<input type="text"  class="form-control mb-3" placeholder="이메일 주소"  name="email" id="emailInput">
-							<input type="text"  class="form-control mb-3" placeholder="이름"  name="name" id="nameInput">
-							<input type="text"  class="form-control mb-4" placeholder="휴대폰 번호"  name="phoneNumber" id="phoneNumberInput">
-							
-							<button type="button" class="btn btn-success form-control mb-3" id="signUpBtn">회원가입</button>
-							
+							</form>
 					
 						</div>
 					</div>
@@ -64,5 +69,134 @@
 	
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	</div>
+	<script>
+		$(document).ready(function(){
+			// 중복 여부 확인 변수
+			var isDuplicate = true;
+			// 중복 체크 여부 확인
+			var isChecked = false;
+			
+			$("#signupForm").on("submit", function(e){
+				
+				e.preventDefault();
+				
+				var id = $("#idInput").val().trim();
+				var password = $("#passwordInput").val().trim();
+				var passwordConfirm = $("#passwordConfirmInput").val().trim();
+				var email = $("#emailInput").val().trim();
+				var name = $("#nameInput").val().trim();
+				var phoneNumber = $("#phoneNumberInput").val().trim();
+				
+				
+				if(id == null || id == "") {
+					alert("id를 입력해 주세요")
+					return;
+				}
+				
+				if(isChecked == false) {
+					alert("중복 체크를 진행해 주세요");
+					return;
+				}
+				
+				
+				if(password == null || password == "") {
+					alert("비밀번호를 입력해 주세요")
+					return;
+				}
+				
+				if(passwordConfirm == null || passwordConfirm == "") {
+					alert("비밀번호 확인을 입력해 주세요")
+					return;
+				}
+				
+				if(password != passwordConfirm) {
+					alert("비밀번호가 일치하지 않습니다")
+					return;
+				}
+				
+				if(email == null || email == "") {
+					alert("이메일을 입력해 주세요")
+					return;
+				}
+				
+				if(name == null || name == "") {
+					alert("이름을 입력해 주세요")
+					return;
+				}
+				
+				if(phoneNumber == null || phoneNumber == "") {
+					alert("전화번호를 입력해 주세요")
+					return;
+				}
+				
+				if(isDuplicate == true) {
+					alert("중복된 이름은 입력할 수 없습니다");
+					return;
+				}
+				
+				
+				
+				$.ajax({
+					
+					type: "post",
+					url:"/user/sign_up",
+					data: {"loginId":id,"password":password,"email":email,"name":name,"phoneNumber":phoneNumber},
+					success: function(data) {
+						//alert(data);
+						
+						if(data.result == "success"){
+							//alert("입력 성공");
+							location.href="/user/signin_view";
+						} else {
+							alert("입력 실패");
+						}
+						
+					},
+					error: function(e) {
+						alert("error");
+					}
+					
+				});
+				
+			});
+			
+			$("#idDuplicateCheckBtn").on("click", function(){
+				//alert("확인");
+				var id = $("#idInput").val().trim();
+
+				if(id == null || id == "") {
+					alert("id를 입력해 주세요")
+					return;
+				}
+				
+				$.ajax({
+					type: "get",
+					url: "/user/duplicateCheck",
+					data:{"loginId":id},
+					success:function(data){
+						//alert(data);
+						isChecked = true;
+						//if(data.isDuplication == true) {
+						if(data.isDuplication) {
+							alert("중복된 ID입니다.");
+							isDuplicate = true;
+						} else {
+							alert("사용 가능한 아이디입니다.");
+							isDuplicate = false;
+							
+						}
+					},	
+					error: function(e) {
+						alert("error");	
+					}	
+				});
+				
+			});
+			
+			
+			
+		});
+	
+	</script>
 </body>
 </html>
