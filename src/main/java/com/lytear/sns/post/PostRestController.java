@@ -41,7 +41,7 @@ public class PostRestController {
 			) {
 		
 		HttpSession session = request.getSession();
-		int userId = (Integer)session.getAttribute("userId");//mafia, 123
+		int userId = (Integer)session.getAttribute("userId");//mafia, 123, jhope, 111
 		String userName = (String)session.getAttribute("userName");
 		
 		

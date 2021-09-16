@@ -82,7 +82,7 @@
 	<script>	
 		$(document).ready(function(){
 			$("#saveBtn").on("click",function(){
-				alert("확인");
+				//alert("확인");
 				
 				
 				var content = $("#contentInput").val().trim();
@@ -91,8 +91,14 @@
 					return;
 				}
 				
+				
+				
+				
+				
+				
+				
 				$.ajax({
-					alert("확인");
+					//alert("확인");
 					type:"post",
 					url:"/post/add_timeline",
 					data:{"content":content},
