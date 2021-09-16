@@ -38,7 +38,8 @@
 						</div>
 						
 						<div class="d-flex justify-content-between  align-items-center">
-							<button type="button" class="btn btn-secondary" >첨부</button>
+							<!--  <button type="button" class="btn btn-secondary" >첨부</button>-->
+							<input type="file" accept="image/*"  id="fileInput">
 							<button type="button" class="btn btn-success" id="saveBtn">업로드</button>
 						</div>
 					</div>
@@ -82,8 +83,7 @@
 	<script>	
 		$(document).ready(function(){
 			$("#saveBtn").on("click",function(){
-				//alert("확인");
-				
+				//alert("확인"); // 사용하면 에러
 				
 				var content = $("#contentInput").val().trim();
 				if(content == null || content == "") {
@@ -91,17 +91,17 @@
 					return;
 				}
 				
-				
-				
-				
-				
-				
+				var formData = new FormData();
+				formData.append("content",content);
+				formData.append("file", $("#fileInput")[0].files[0]);
 				
 				$.ajax({
-					//alert("확인");
+					enctype: "multipart/form-data",
+					processData: false,
+					contentType: false,
 					type:"post",
 					url:"/post/add_timeline",
-					data:{"content":content},
+					data: formData,
 					success : function(data) {
 						if(data.result == "success") {
 							alert("입력 성공");

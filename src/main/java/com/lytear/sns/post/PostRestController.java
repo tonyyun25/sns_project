@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.lytear.sns.post.bo.PostBO;
 
@@ -23,12 +24,7 @@ public class PostRestController {
 	 * 
 	 * 
 	 * 
-	 * 
-	 * 
-	 * 
 	 * */
-	
-	
 	
 	@Autowired
 	private PostBO postBO;
@@ -36,13 +32,13 @@ public class PostRestController {
 	@PostMapping("/add_timeline")
 	public Map<String, String> add_timeline(
 			@RequestParam("content") String content
-			//,@RequestParam("imagePath") String imagePath
+			,@RequestParam("file") MultipartFile file//API URL 설계시 정한 파라미터 명, 데이터 타입
 			, HttpServletRequest request
 			) {
 		
 		HttpSession session = request.getSession();
 		int userId = (Integer)session.getAttribute("userId");//mafia, 123, jhope, 111
-		String userName = (String)session.getAttribute("userName");
+		String userNameTest = (String)session.getAttribute("userName");
 		
 		
 		/* UserRestController 설정 내용
@@ -52,7 +48,7 @@ public class PostRestController {
 		*/
 		
 		//int count = postBO.getTimeline(userId, userName, content, imagePath);
-		int count = postBO.getTimeline(userId, userName, content);
+		int count = postBO.getTimeline(userId, userNameTest, content, file);
 		
 		Map<String, String> result = new HashMap<>();
 		

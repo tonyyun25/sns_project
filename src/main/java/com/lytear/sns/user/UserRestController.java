@@ -66,6 +66,7 @@ public class UserRestController {
 	public Map<String, String> sign_Up (
 			@RequestParam("loginId") String loginId
 			,@RequestParam("password") String password
+			
 			,HttpServletRequest request
 			) {
 		User user = userBO.getLogInUser(loginId, password);

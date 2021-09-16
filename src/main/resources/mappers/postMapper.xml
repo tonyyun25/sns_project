@@ -8,18 +8,18 @@
  		INSERT INTO `post`
  		(
  			`userId`
- 			,`userName`
+ 			,`userName`<!-- 여기에 칼럼명이 `userName`이 아니라 `윤진일`로 인식한다 -->
  			,`content`
- 			<!--  ,`imagePath`-->
+ 			,`imagePath`
  			,`createdAt`
  			,`updatedAt`
  		)
  		VALUES
  		(
- 			${userId}
- 			,${userName}
- 			,${content}
- 			<!--  ,${imagePath}-->
+ 			#{userId}
+ 			,#{userNameTest}
+ 			,#{content}
+ 			,#{imagePath}
  			,now()
  			,now()
  		)

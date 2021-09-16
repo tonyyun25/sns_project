@@ -8,8 +8,9 @@ public interface PostDAO {
 
 	public int insertTimeline(
 			@Param("userId") int userId
-			,@Param("userName") String userName
+			,@Param("userNameTest") String userNameTest
 			,@Param("content") String content
+			,@Param("imagePath") String imagePath
 			//,@Param("imagePath") String imagePath
 			
 			);
