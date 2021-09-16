@@ -22,6 +22,11 @@
 		
 		<section class="content d-flex align-items-center justify-content-center">
 			<div class="">
+				
+				<c:if test="${not empty userName}">
+				<div class="text-right mr-3">${userName } 님 [로그아웃]</div><!--mafia/123-->
+				</c:if>
+				
 				<div class="d-flex align-items-center justify-content-center">
 					<div class="border-box1  border border-secondary d-flex align-items-center justify-content-center">
 						<div class="input-box ">
@@ -37,14 +42,19 @@
 									<input type="text" class="form-control" placeholder="ID" name="loginId" id="idInput">
 									<!-- btn-outline-secondary -->
 									<div class="input-group-append">
-										<button class="btn btn-info " type="button" id="idDuplicateCheckBtn">중복확인</button>
+										<button class="btn btn-info " type="button" id="idDuplicateBtn">중복확인</button>
 									</div>
-									
 								</div>
+								<!-- d-none -->
+								<div id="duplicateDiv" class="d-none"><small class="text-danger">중복된 ID입니다.</small></div>	
+								<div id="noneDuplicateDiv" class="d-none"><small class="text-success">사용 가능한 ID입니다.</small></div>		
+									
 								
 								<input type="password"  class="form-control mb-3" placeholder="비밀번호"  name="password" id="passwordInput">
 								
 								<input type="password"  class="form-control mb-3" placeholder="비밀번호 확인"  name="passwordConfirm" id="passwordConfirmInput">
+								
+								<!-- d-none -->
 								
 								<input type="text"  class="form-control mb-3" placeholder="이메일 주소"  name="email" id="emailInput">
 								<input type="text"  class="form-control mb-3" placeholder="이름"  name="name" id="nameInput">
@@ -60,7 +70,7 @@
 							
 				<div class="d-flex align-items-center justify-content-center mt-3">
 					<div class="border-box3  border border-secondary d-flex align-items-center justify-content-center">
-						<span class=" ">계정이 있으신가요?<a href="#" > 로그인</a></span>
+						<span class=" ">계정이 있으신가요?<a href="/user/signin_view" > 로그인</a></span>
 					
 					</div>
 				</div>
@@ -69,15 +79,25 @@
 	
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	</div>
-	<script>
+	<script type="text/javascript">
 		$(document).ready(function(){
 			// 중복 여부 확인 변수
 			var isDuplicate = true;
 			// 중복 체크 여부 확인
-			var isChecked = false;
+			var isIdCheck = false;
+			// 아이디에 입력이 있을 경우 중복체크 상태를 초기화 한다
+			$("#idInput").on("input",function(){ // 참조 : Front day 13 test 00
+			/*
+			input을 만들어서 5자 이상의 글씨가 입력되는 경우 alert을 통해서 "다섯자를 초과하여 입력할 수 없습니다. "메시지를 보여주세요.
+			"input" : 새로운 '글자'가 들어온 것만 체크
+			*/	
+				isIdCheck = false;
+				isDuplicate = true;
+			});
+			
 			
 			$("#signupForm").on("submit", function(e){
-				
+				// JS에서 에러가 하나라도 있으면 form이 그대로 실행되므로 유의
 				e.preventDefault();
 				
 				var id = $("#idInput").val().trim();
@@ -93,7 +113,7 @@
 					return;
 				}
 				
-				if(isChecked == false) {
+				if(isIdCheck == false) {
 					alert("중복 체크를 진행해 주세요");
 					return;
 				}
@@ -142,27 +162,26 @@
 					url:"/user/sign_up",
 					data: {"loginId":id,"password":password,"email":email,"name":name,"phoneNumber":phoneNumber},
 					success: function(data) {
-						//alert(data);
 						
 						if(data.result == "success"){
-							//alert("입력 성공");
+							//alert("회원 가입 성공");
 							location.href="/user/signin_view";
 						} else {
-							alert("입력 실패");
+							alert("회원 가입 실패");
 						}
 						
 					},
 					error: function(e) {
-						alert("error");
+						alert("회원 가입 실패");
 					}
 					
 				});
 				
 			});
 			
-			$("#idDuplicateCheckBtn").on("click", function(){
+			$("#idDuplicateBtn").on("click", function(){
 				//alert("확인");
-				var id = $("#idInput").val().trim();
+				var id = $("#idInput").val().trim();//var loginId
 
 				if(id == null || id == "") {
 					alert("id를 입력해 주세요")
@@ -171,13 +190,27 @@
 				
 				$.ajax({
 					type: "get",
-					url: "/user/duplicateCheck",
+					url: "/user/is_duplicate_id",
 					data:{"loginId":id},
 					success:function(data){
 						//alert(data);
-						isChecked = true;
+						isIdCheck = true;
+						//alert(data);
+						/*방법 1*/
+						if(data.is_duplicate) {
+							isDuplicate = true;
+							$("#duplicateDiv").removeClass("d-none");
+							$("#noneDuplicateDiv").addClass("d-none");
+						} else {
+							isDuplicate = false;
+							$("#duplicateDiv").addClass("d-none");
+							$("#noneDuplicateDiv").removeClass("d-none");
+							
+						}
+						
 						//if(data.isDuplication == true) {
-						if(data.isDuplication) {
+						/* 방법 2	
+							if(data.isDuplication) {
 							alert("중복된 ID입니다.");
 							isDuplicate = true;
 						} else {
@@ -185,6 +218,7 @@
 							isDuplicate = false;
 							
 						}
+						*/
 					},	
 					error: function(e) {
 						alert("error");	

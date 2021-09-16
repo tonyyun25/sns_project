@@ -25,7 +25,7 @@
 	
 	</insert>
 
-	<select id="selectDuplicate" parameterType="string" resultType="int">
+	<select id="selectCountByID" parameterType="string" resultType="int">
 		SELECT
 			count(*)	
 		
@@ -36,6 +36,27 @@
 	
 	
 	</select>
+
+	<select id="selectNewLogInUser" resultType="com.lytear.sns.user.model.User"
+	parameterType="map">
+		SELECT 
+			`id`
+			,`loginId`
+			,`password`
+			,`email`
+			,`name`
+			,`phoneNumber`
+			,`createdAt`
+			,`updatedAt`
+			
+		FROM
+			`user`
+		WHERE
+			`loginId` = #{loginId}
+			AND 
+			`password` = #{password}
+	</select>
+
 
 
 

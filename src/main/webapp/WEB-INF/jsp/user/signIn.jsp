@@ -30,31 +30,39 @@
 		
 		<section class="content d-flex align-items-center justify-content-center">
 			<div class="">
+				
+				<c:if test="${not empty userName}">
+				<div class="text-right mr-3">${userName } 님 [로그아웃]</div><!--mafia/123-->
+				</c:if>
+				
 				<div class="d-flex align-items-center justify-content-center">
+					
 					<div class="border-box1  border border-secondary d-flex align-items-center justify-content-center">
+						
 						<div class="input-box ">
 							
 							<div class="banner d-flex align-items-center justify-content-center mb-3">
 								<span class="font-weight-bold">Universegram</span>
 							</div>
 							
-							<div class="input-group mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text">🚺</span>
+							<form id="signInForm">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text">🚺</span>
+									</div>
+									<input type="text" class="form-control" placeholder="ID" name="loginId" id="idInput">
 								</div>
-								<input type="text" class="form-control" placeholder="ID" name="loginId" id="idInput">
-							</div>
-							
-							<div class="input-group mb-5">
-								<div class="input-group-prepend">
-									<span class="input-group-text">🔑</span>
+								
+								<div class="input-group mb-5">
+									<div class="input-group-prepend">
+										<span class="input-group-text">🔑</span>
+									</div>
+									<input type="password"  class="form-control" placeholder="●●●●" name="password" id="passwordInput">
 								</div>
-								<input type="password"  class="form-control" placeholder="●●●●" name="password" id="passwordInput">
-							</div>
-							
-							
-							<button type="button" class="btn btn-success form-control mb-3" id="logInBtn">로그인</button>
-							
+								
+								
+								<button type="submit" class="btn btn-success form-control mb-3" id="logInBtn">로그인</button>
+							</form>
 							
 							
 						</div>
@@ -63,7 +71,7 @@
 							
 				<div class="d-flex align-items-center justify-content-center mt-3">
 					<div class="border-box3  border border-secondary d-flex align-items-center justify-content-center">
-						<span class=" ">계정이 없으신가요?<a href="#" > 가입하기</a></span>
+						<span class=" ">계정이 없으신가요?<a href="/user/signup_view" > 가입하기</a></span>
 					
 					</div>
 				</div>
@@ -73,5 +81,53 @@
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 		
 	</div>
+	<script>
+		$(document).ready(function(){
+			$("#signInForm").on("submit", function(e){
+				
+				e.preventDefault();
+				
+				var id = $("#idInput").val().trim();
+				
+				var password = $("#passwordInput").val().trim();
+				
+				if(id == null || id == "") {
+					alert("ID를 입력해 주세요");
+					return;
+				}
+				if(password == null || password == "") {
+					alert("비밀번호를 입력해 주세요");
+					return;
+				}
+				
+				$.ajax({
+					
+					type: "post",
+					url:"/user/sign_in",
+					data: {"loginId":id, "password":password},	
+					success : function(data) {
+						//alert(data);
+						//alert("확인");
+						if(data.result == "success") {
+							alert("로그인 성공");
+						} else {
+							alert("로그인 실패");
+						}
+						
+					},
+					error : function(e) {
+						alert("error");
+					}	
+						
+				});
+				
+			});
+			
+			
+		});
+	
+	
+	</script>
+	
 </body>
 </html>
