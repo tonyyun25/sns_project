@@ -110,6 +110,9 @@
 						//alert("확인");
 						if(data.result == "success") {
 							alert("로그인 성공");
+							
+							
+							
 						} else {
 							alert("로그인 실패");
 						}

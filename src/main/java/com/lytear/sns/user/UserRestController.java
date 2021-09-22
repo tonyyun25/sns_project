@@ -69,18 +69,18 @@ public class UserRestController {
 			
 			,HttpServletRequest request
 			) {
-		User user = userBO.getLogInUser(loginId, password);
-		
 		Map<String, String> result = new HashMap<>();
 		
+		User user = userBO.getLogInUser(loginId, password);
 		
 		if(user != null) {
+			result.put("result","success");
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("userId",user.getId());
 			session.setAttribute("userLoginId", user.getLoginId());
 			session.setAttribute("userName",user.getName());
 			
-			result.put("result","success");
 		} else {
 			result.put("result","fail");
 		}

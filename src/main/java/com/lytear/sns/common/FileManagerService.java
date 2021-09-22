@@ -15,8 +15,7 @@ public class FileManagerService {
 
 	
 	public final static String FILE_UPLOAD_PATH = "C:\\Users\\01.Web개발\\memo\\upload\\images/";
-	// Logger를 사용하고자 public String saveFile으로 변경시에도 private final static 은 그대로 둔 상태에서
-	// 다른 곳에서 FILE_UPLOAD_PATH 사용 가능. Static 메소드 안에서 다른 변수 못 씀. static 변수는 다른 곳에서 씀
+	
 	public static String saveFile(int userId, MultipartFile file) {
 		
 //		Logger logger = LoggerFactory.getLogger(this.getClass());

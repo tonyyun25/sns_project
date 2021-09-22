@@ -18,7 +18,8 @@ import com.lytear.sns.post.bo.PostBO;
 @RestController
 @RequestMapping("/post")
 public class PostRestController {
-
+	// 강의영상 (09.17일) 5분, 48분, 1시간 2분, 2시간 4분, 2시간 22분
+	
 	/*1. Uncaught SyntaxError : unexpected string : timeline:95
 	 * : 파라미터 (userName, not null) 없었음
 	 * 
@@ -29,14 +30,14 @@ public class PostRestController {
 	@Autowired
 	private PostBO postBO;
 	
-	@PostMapping("/add_timeline")
+	@PostMapping("/create")
 	public Map<String, String> add_timeline(
 			@RequestParam("content") String content
-			,@RequestParam("file") MultipartFile file//API URL 설계시 정한 파라미터 명, 데이터 타입
+			,@RequestParam(value = "file") MultipartFile file//API URL 설계시 정한 파라미터 명, 데이터 타입
 			, HttpServletRequest request
 			) {
 		
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession();//세션에 있는 값을 가져오기 위한, 누가 쓴지에 대한 정보를 저장하기 위해 해당 로그인된 값
 		int userId = (Integer)session.getAttribute("userId");//mafia, 123, jhope, 111
 		String userNameTest = (String)session.getAttribute("userName");
 		
@@ -48,7 +49,7 @@ public class PostRestController {
 		*/
 		
 		//int count = postBO.getTimeline(userId, userName, content, imagePath);
-		int count = postBO.getTimeline(userId, userNameTest, content, file);
+		int count = postBO.addPost(userId, userNameTest, content, file);
 		
 		Map<String, String> result = new HashMap<>();
 		
