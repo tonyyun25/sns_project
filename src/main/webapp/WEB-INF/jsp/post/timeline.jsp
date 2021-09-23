@@ -51,23 +51,23 @@
 				</div>
 				
 				<div class="border-box1  border border-secondary">
-					
+					<c:forEach var="sns" items="${snsList }">
 					
 					<div class="d-flex justify-content-center">
-						<div class="input-box2 bg-success d-flex justify-content-between">	
+						<div class="input-box2 d-flex justify-content-between">	
 					
-							<div>soy_bean</div>
+							<div>${sns.userName }</div>
 							<div>삭제</div>
 						</div>	
 					</div>	
 					<!-- ★★ 여기에 forEach 문을 통해 timeline 을 보여줘야 한다 ★★ -->
 					<!-- <img width="400" height="300" class="bg-secondary">  -->
 					
-					<c:forEach var="sns" items="${snsList }">
-						
-						<img src="${sns.imagePath }">
 					
-					</c:forEach>
+						
+						<img width="400" height="300" src="${sns.imagePath }">
+					
+					
 					
 					
 					
@@ -90,6 +90,8 @@
 							
 						</div>
 					</div>
+					
+					</c:forEach>
 				</div>
 				
 			</div>

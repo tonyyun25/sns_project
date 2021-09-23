@@ -38,9 +38,9 @@
  			,`updatedAt`
  		FROM
  			`post`
- 		WHERE `userId` = #{userId}
+ 		<!--  WHERE `userId` = #{userId} -->
  	
- 		ORDER BY `id `DESC
+ 		ORDER BY `id` DESC
  	</select>
  	
  </mapper>

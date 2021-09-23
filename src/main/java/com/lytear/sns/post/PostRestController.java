@@ -38,7 +38,7 @@ public class PostRestController {
 			) {
 		
 		HttpSession session = request.getSession();//세션에 있는 값을 가져오기 위한, 누가 쓴지에 대한 정보를 저장하기 위해 해당 로그인된 값
-		int userId = (Integer)session.getAttribute("userId");//mafia, 123, jhope, 111
+		int userId = (Integer)session.getAttribute("userId");//mafia, 123, jhope, 111, sugar 123
 		String userNameTest = (String)session.getAttribute("userName");
 		
 		

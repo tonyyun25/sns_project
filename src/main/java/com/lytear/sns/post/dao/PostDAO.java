@@ -20,8 +20,8 @@ public interface PostDAO {
 			);
 	
 	
-	public List<Post> selectSnsList(@Param("userId") int userId);
+//	public List<Post> selectSnsList(@Param("userId") int userId);
 	
-	
+	public List<Post> selectSnsList();
 	
 }

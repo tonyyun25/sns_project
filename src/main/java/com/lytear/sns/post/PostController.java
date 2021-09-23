@@ -22,13 +22,14 @@ public class PostController {
 	@RequestMapping("/timeline")
 	public String timeline(
 			Model model
-			, HttpServletRequest request
+			//, HttpServletRequest request
 			) {
-		HttpSession session = request.getSession();
+		//HttpSession session = request.getSession();
 		
-		int userId = (Integer)session.getAttribute("userId");
+		//int userId = (Integer)session.getAttribute("userId");
 		
-		List<Post> snsList = postBO.getSnsList(userId);
+		//List<Post> snsList = postBO.getSnsList(userId);
+		List<Post> snsList = postBO.getSnsList();
 		
 		model.addAttribute("snsList",snsList);
 		
