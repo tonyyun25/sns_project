@@ -1,4 +1,4 @@
-package com.lytear.sns.post;
+package com.lytear.sns.post.model;
 
 import java.util.Date;
 
@@ -54,7 +54,6 @@ public class Post {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
 	
 	
 	
