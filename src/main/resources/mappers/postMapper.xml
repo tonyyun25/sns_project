@@ -37,8 +37,10 @@
  			,`updatedAt`
  		FROM
  			`post`
+
  		ORDER BY `id` DESC
  		
+
  	</select>
  	
  </mapper>

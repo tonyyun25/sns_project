@@ -39,12 +39,10 @@ public class PostBO {
 		return postDAO.insertPost(userId, userNameTest, content, imagePath);
 	}
 	
+
 	
 	public List<Post> getPostList() {
 		return postDAO.selectPostList();
 	}
-	
-	
-	
 	
 }

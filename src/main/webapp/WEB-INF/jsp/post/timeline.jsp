@@ -50,24 +50,28 @@
 					</div>
 				</div>
 				
+				<!-- 피드 : 행 하나당 피드 전체가반복 되어야 하므로 전체로 반복시킨다 -->
+				
+				<c:forEach var="post" items="${postList }">
+				
 				<div class="border-box1  border border-secondary">
 					
 					
 					<div class="d-flex justify-content-center">
 						<div class="input-box2 bg-success d-flex justify-content-between">	
 					
-							<div>soy_bean</div>
+							<div>${post.userName }</div>
 							<div>삭제</div>
 						</div>	
 					</div>	
 					<!-- ★★ 여기에 forEach 문을 통해 timeline 을 보여줘야 한다 ★★ -->
 					<!-- <img width="400" height="300" class="bg-secondary">  -->
 					
-					<c:forEach var="post" items="${postList }">
-						
-						<img src="${post.imagePath }">
 					
-					</c:forEach>
+						
+						<img src="${post.imagePath }" class="w-100">
+					
+				
 					
 					
 					
@@ -91,6 +95,11 @@
 						</div>
 					</div>
 				</div>
+				
+				</c:forEach>
+				<!-- /피드 -->
+				
+				
 				
 			</div>
 		</section>

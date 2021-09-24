@@ -24,14 +24,20 @@ public class PostController {
 			Model model
 			//, HttpServletRequest request
 			) {
+
 		/*
 		HttpSession session = request.getSession();
 		
 		int userId = (Integer)session.getAttribute("userId");
 		*/
-		List<Post> snsList = postBO.getPostList();
+		List<Post> postList = postBO.getPostList();
 		
 		model.addAttribute("postList", postList);
+
+		
+		//List<Post> snsList = postBO.getSnsList(userId);
+		
+		
 		
 		return "post/timeline";
 	}
