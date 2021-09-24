@@ -22,15 +22,16 @@ public class PostController {
 	@RequestMapping("/timeline")
 	public String timeline(
 			Model model
-			, HttpServletRequest request
+			//, HttpServletRequest request
 			) {
+		/*
 		HttpSession session = request.getSession();
 		
 		int userId = (Integer)session.getAttribute("userId");
+		*/
+		List<Post> snsList = postBO.getPostList();
 		
-		List<Post> snsList = postBO.getSnsList(userId);
-		
-		model.addAttribute("snsList",snsList);
+		model.addAttribute("postList", postList);
 		
 		return "post/timeline";
 	}

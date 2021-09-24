@@ -63,9 +63,9 @@
 					<!-- ★★ 여기에 forEach 문을 통해 timeline 을 보여줘야 한다 ★★ -->
 					<!-- <img width="400" height="300" class="bg-secondary">  -->
 					
-					<c:forEach var="sns" items="${snsList }">
+					<c:forEach var="post" items="${postList }">
 						
-						<img src="${sns.imagePath }">
+						<img src="${post.imagePath }">
 					
 					</c:forEach>
 					

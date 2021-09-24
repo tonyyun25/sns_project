@@ -10,7 +10,7 @@ import com.lytear.sns.post.Post;
 @Repository
 public interface PostDAO {
 
-	public int insertTimeline(
+	public int insertPost(
 			@Param("userId") int userId
 			,@Param("userNameTest") String userNameTest
 			,@Param("content") String content
@@ -20,7 +20,7 @@ public interface PostDAO {
 			);
 	
 	
-	public List<Post> selectSnsList(@Param("userId") int userId);
+	public List<Post> selectPostList();
 	
 	
 	

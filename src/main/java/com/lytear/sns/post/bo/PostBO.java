@@ -36,12 +36,12 @@ public class PostBO {
 			}
 		}
 		*/
-		return postDAO.insertTimeline(userId, userNameTest, content, imagePath);
+		return postDAO.insertPost(userId, userNameTest, content, imagePath);
 	}
 	
 	
-	public List<Post> getSnsList(int userId) {
-		return postDAO.selectSnsList(userId);
+	public List<Post> getPostList() {
+		return postDAO.selectPostList();
 	}
 	
 	
