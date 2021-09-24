@@ -38,17 +38,12 @@ public class PostController {
 		//List<Post> snsList = postBO.getSnsList(userId);
 		
 		
-		
+		// 로그인 ID 샘플 : mafia / 123, jhope / 123, sugar / 123
 		return "post/timeline";
 	}
 	
-	/*
-	@GetMapping("list_view")
-	public String listView() {
-		
-		return "post/listView";
-	}
-	*/
+	
+	
 	
 	
 	

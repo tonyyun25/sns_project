@@ -24,7 +24,7 @@
 </head>
 <body>
 	<div id="wrap">
-		<section class="content d-flex align-items-center justify-content-center">
+		<section class="content d-flex justify-content-center"><!-- 높이가 없는 상태에서 align-items-center 주면 위가 잘린다 -->
 			<div class="">
 				<c:if test="${not empty userName}">
 				<div class="text-right mr-3">${userName } 님 [로그아웃]</div><!--mafia/123-->
@@ -54,11 +54,11 @@
 				
 				<c:forEach var="post" items="${postList }">
 				
-				<div class="border-box1  border border-secondary">
+				<div class="border-box1  border border-secondary mb-3">
 					
 					
 					<div class="d-flex justify-content-center">
-						<div class="input-box2 bg-success d-flex justify-content-between">	
+						<div class="input-box2  d-flex justify-content-between">	
 					
 							<div>${post.userName }</div>
 							<div>삭제</div>
@@ -66,35 +66,50 @@
 					</div>	
 					<!-- ★★ 여기에 forEach 문을 통해 timeline 을 보여줘야 한다 ★★ -->
 					<!-- <img width="400" height="300" class="bg-secondary">  -->
-					
-					
 						
 						<img src="${post.imagePath }" class="w-100">
-					
-				
-					
-					
-					
-					
 					
 										
 				 	<hr>
 					
-					<div class="d-flex justify-content-center">
-						<div class="input-box2 bg-success d-flex justify-content-between">
+					<!-- 댓글 -->
+					<div class="d-flex justify-content-center mb-2">
+						<div class="input-box2  d-flex justify-content-between">	
+					
+					
+					soy_bean 노는 건지 일하는 건지 헷갈릴 때가...<br>
+					carrot_kim 여기가 어디에요?<br>
+					sandy_lee 재밌겠다 ~~
+						</div>	
+					</div>	
+					<!--  댓글 달기 -->
+					
+					
+					<div class="d-flex justify-content-center mb-2">
+						<div class="input-box2  d-flex justify-content-between">
 							
-							<div class="d-flex justify-content-start">	
+							
+							
+							<div class="col-9  d-flex align-items-center ">	
 								<div>♣</div>
-								<div class="ml-2">댓글 달기...</div>	
+								<input type="text" class=" form-control" placeholder="댓글 달기..." id="commentInput-${post.id }">	
 							</div>
 							
-							<div class="d-flex justify-content-end">
-								<div>게시</div>
+							<div class="col-3 d-flex">
+								<!-- 정답 :  
+								<input type="text" class="form-control border-0" id="commentInput-${post.id }">
+								<button class="commentBtn" data-post-id="${post.id }">게시</button>-->
+								<!-- data 뒤에 대문자 절대 안 됨 -->
+								
+								<button class="btn commentBtn" data-post-id="${post.id }" >게시</button>
+								
 							</div>
 							
 						</div>
 					</div>
-				</div>
+					
+					<!--  댓글 달기 -->
+				</div >
 				
 				</c:forEach>
 				<!-- /피드 -->
@@ -112,8 +127,6 @@
 			
 			});
 			
-			
-			
 			$("#uploadBtn").on("click",function(){
 				//alert("확인"); // 사용하면 에러
 				
@@ -129,8 +142,6 @@
 					alert("파일을 추가하세요");
 					return;
 				}
-				
-				
 				
 				var formData = new FormData();
 				formData.append("content",content);
@@ -158,6 +169,26 @@
 					
 				});
 			});
+			
+			$(".commentBtn").on("click", function(){
+				var postId = $(this).data("post-id");
+				//alert(postId);
+				// postId, content
+				
+				// 대응되는 input의 value => 문자열 연산
+				// ex) postId = 5;
+				// "#commentInput-5"
+				
+				
+				//var content = $("#commentInput-" + postId).val();
+				var content = $("#commentInput-" + postId).val();//id="commentInput-${post.id }"
+				
+				
+				
+			});
+			
+			
+			
 			
 		});	
 	

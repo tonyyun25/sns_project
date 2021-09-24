@@ -62,7 +62,19 @@ public class PostRestController {
 		return result;
 	}
 	
-	
-	
+	@PostMapping("/post/comment/create")
+	public Map<String, String> insertComment(
+			@RequestParam("postId") int postId
+			,@RequestParam("content") String content
+			){
+		/*post, 코멘트 다 가져와서
+		 * 해당하는 post에 맞춰서 코멘트 출력
+		 * 
+		 * 코멘트 다 가져왔을 때 부하 있으므로 피하기
+		 * 
+		 * */
+		
+		
+	}
 	
 }
