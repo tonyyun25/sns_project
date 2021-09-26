@@ -45,4 +45,10 @@ public class PostBO {
 		return postDAO.selectPostList();
 	}
 	
+	public int addComment(int userId, String userNameTest, int postId, String content){
+		return postDAO.insertComment(userId, userNameTest, postId, content) ;
+	}
+	
+	
+	
 }

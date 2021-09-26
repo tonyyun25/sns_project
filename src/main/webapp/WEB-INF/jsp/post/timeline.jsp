@@ -75,11 +75,10 @@
 					<!-- 댓글 -->
 					<div class="d-flex justify-content-center mb-2">
 						<div class="input-box2  d-flex justify-content-between">	
-					
-					
-					soy_bean 노는 건지 일하는 건지 헷갈릴 때가...<br>
-					carrot_kim 여기가 어디에요?<br>
-					sandy_lee 재밌겠다 ~~
+							soy_bean 노는 건지 일하는 건지 헷갈릴 때가...<br>
+							carrot_kim 여기가 어디에요?<br>
+							sandy_lee 재밌겠다 ~~
+							
 						</div>	
 					</div>	
 					<!--  댓글 달기 -->
@@ -87,9 +86,6 @@
 					
 					<div class="d-flex justify-content-center mb-2">
 						<div class="input-box2  d-flex justify-content-between">
-							
-							
-							
 							<div class="col-9  d-flex align-items-center ">	
 								<div>♣</div>
 								<input type="text" class=" form-control" placeholder="댓글 달기..." id="commentInput-${post.id }">	
@@ -102,34 +98,24 @@
 								<!-- data 뒤에 대문자 절대 안 됨 -->
 								
 								<button class="btn commentBtn" data-post-id="${post.id }" >게시</button>
-								
 							</div>
-							
 						</div>
 					</div>
-					
 					<!--  댓글 달기 -->
 				</div >
 				
 				</c:forEach>
 				<!-- /피드 -->
-				
-				
-				
 			</div>
 		</section>
-		
 	</div>
 	<script>	
 		$(document).ready(function(){
 			$("#imageUploadBtn").on("click", function(){
 				$("#fileInput").click();
-			
 			});
-			
 			$("#uploadBtn").on("click",function(){
 				//alert("확인"); // 사용하면 에러
-				
 				let content = $("#contentInput").val().trim();
 				
 				if(content == null || content == "") {
@@ -142,7 +128,6 @@
 					alert("파일을 추가하세요");
 					return;
 				}
-				
 				var formData = new FormData();
 				formData.append("content",content);
 				formData.append("file", $("#fileInput")[0].files[0]);
@@ -160,13 +145,11 @@
 							location.reload();
 						} else {
 							alert("글쓰기에 실패했습니다.");
-						}						
-						
+						}			
 					},
 					error : function(e) {
 						alert("error");
 					}
-					
 				});
 			});
 			
@@ -174,26 +157,33 @@
 				var postId = $(this).data("post-id");
 				//alert(postId);
 				// postId, content
-				
 				// 대응되는 input의 value => 문자열 연산
 				// ex) postId = 5;
 				// "#commentInput-5"
-				
-				
 				//var content = $("#commentInput-" + postId).val();
 				var content = $("#commentInput-" + postId).val();//id="commentInput-${post.id }"
 				
+				$.ajax({
+					type:"post",
+					url:"/post/comment/create",
+					data:{"postId":postId,"content":content},
+					success:function(data){
+						if(data.result == "success"){
+							alert("댓글 추가 성공");
+						} else {
+							alert("댓글 추가 실패");
+						}
+							
+							
+					},
+					error:function(e){
+						alert("error");//postId : 11, content : 나무가 잘렸네ㅠㅠ
+					}
 				
+				});
 				
 			});
-			
-			
-			
-			
 		});	
-	
-	
-	
 	</script>
 
 </body>
