@@ -4,9 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.lytear.sns.post.Post;
+import com.lytear.sns.post.model.Post;
 
 @Repository
 public interface PostDAO {
@@ -24,11 +23,6 @@ public interface PostDAO {
 
 	public List<Post> selectPostList();
 	
-	public int insertComment(
-			@Param("userId") int userId
-			,@Param("userNameTest") String userNameTest
-			,@Param("postId") int postId
-			,@Param("content") String content
-			);
+	
 	
 }

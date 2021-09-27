@@ -52,7 +52,9 @@
 				
 				<!-- 피드 : 행 하나당 피드 전체가반복 되어야 하므로 전체로 반복시킨다 -->
 				
-				<c:forEach var="post" items="${postList }">
+				<%--<c:forEach var="post" items="${postList }">--%>
+				<!-- html 주석은 <!---가 아니라 <퍼센트-- 써야 함 -->-->
+				<c:forEach var="postDetail" items="${postList }">
 				
 				<div class="border-box1  border border-secondary mb-3">
 					
@@ -60,26 +62,31 @@
 					<div class="d-flex justify-content-center">
 						<div class="input-box2  d-flex justify-content-between">	
 					
-							<div>${post.userName }</div>
+							<div>${postDetail.post.userName }</div>
 							<div>삭제</div>
 						</div>	
 					</div>	
 					<!-- ★★ 여기에 forEach 문을 통해 timeline 을 보여줘야 한다 ★★ -->
 					<!-- <img width="400" height="300" class="bg-secondary">  -->
 						
-						<img src="${post.imagePath }" class="w-100">
+						<img src="${postDetail.post.imagePath }" class="w-100">
 					
 										
 				 	<hr>
 					
 					<!-- 댓글 -->
 					<div class="d-flex justify-content-center mb-2">
+						<c:forEach var="comment" items="${postDetail.commentList }"><!-- 이중, 3중 반복문 신경 쓸 필요 없이 그냥 하나의 for 문이야. post 하나에 들어있는 댓글 리스트를 반복시킨다 -->
 						<div class="input-box2  d-flex justify-content-between">	
+							<!-- 
 							soy_bean 노는 건지 일하는 건지 헷갈릴 때가...<br>
 							carrot_kim 여기가 어디에요?<br>
-							sandy_lee 재밌겠다 ~~
+							sandy_lee 재밌겠다 ~~ -->
+							<b>${comment.userName }</b> ${comment.content }
 							
-						</div>	
+							
+						</div>
+						</c:forEach>	
 					</div>	
 					<!--  댓글 달기 -->
 					
@@ -88,7 +95,7 @@
 						<div class="input-box2  d-flex justify-content-between">
 							<div class="col-9  d-flex align-items-center ">	
 								<div>♣</div>
-								<input type="text" class=" form-control" placeholder="댓글 달기..." id="commentInput-${post.id }">	
+								<input type="text" class=" form-control" placeholder="댓글 달기..." id="commentInput-${postDetail.post.id }">	
 							</div>
 							
 							<div class="col-3 d-flex">
@@ -97,7 +104,7 @@
 								<button class="commentBtn" data-post-id="${post.id }">게시</button>-->
 								<!-- data 뒤에 대문자 절대 안 됨 -->
 								
-								<button class="btn commentBtn" data-post-id="${post.id }" >게시</button>
+								<button class="btn commentBtn" data-post-id="${postDetail.post.id }" >게시</button>
 							</div>
 						</div>
 					</div>
@@ -169,7 +176,9 @@
 					data:{"postId":postId,"content":content},
 					success:function(data){
 						if(data.result == "success"){
-							alert("댓글 추가 성공");
+							//alert("댓글 추가 성공");
+							location.reload();
+							
 						} else {
 							alert("댓글 추가 실패");
 						}

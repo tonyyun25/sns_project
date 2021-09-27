@@ -1,22 +1,33 @@
-package com.lytear.sns.post;
+package com.lytear.sns.post.comment.model;
 
 import java.util.Date;
 
-public class Post {
 
+public class Comment {
+
+	
 	private int id;
+	private int postId;
 	private int userId;
 	private String userName;
 	private String content;
-	private String imagePath;
 	private Date createdAt;
 	private Date updatedAt;
+	
 	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	
+	public int getPostId() {
+		return postId;
+	}
+	public void setPostId(int postId) {
+		this.postId = postId;
 	}
 	public int getUserId() {
 		return userId;
@@ -36,12 +47,6 @@ public class Post {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getImagePath() {
-		return imagePath;
-	}
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
-	}
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -59,3 +64,5 @@ public class Post {
 	
 	
 }
+
+

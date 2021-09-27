@@ -4,6 +4,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.lytear.sns.post.dao.PostDAO">
+ 
  	<insert id="insertPost" parameterType="map">
  		INSERT INTO `post`
  		(
@@ -42,30 +43,11 @@
  		
 
  	</select>
- 	
- 	<insert id="insertComment" parameterType="map">
- 		INSERT INTO `comment`
- 		(
- 			`postId`
- 			,`userId`
- 			,`userName`
- 			,`content`
- 			,`createdAt`
- 			,`updatedAt`
- 		
- 		)
- 		VALUES
- 		(
- 			#{postID}
- 			,#{userId}
- 			,#{userNameTest}
- 			,#{content}
- 			,now()
- 			,now()
- 		);
+
+
+
  	
  	
- 	</insert>
  	
  </mapper>
  
