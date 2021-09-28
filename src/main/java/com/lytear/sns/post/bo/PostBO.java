@@ -11,6 +11,7 @@ import com.lytear.sns.common.FileManagerService;
 import com.lytear.sns.post.comment.bo.CommentBO;
 import com.lytear.sns.post.comment.model.Comment;
 import com.lytear.sns.post.dao.PostDAO;
+import com.lytear.sns.post.like.bo.LikeBO;
 import com.lytear.sns.post.model.Post;
 import com.lytear.sns.post.model.PostDetail;
 
@@ -22,6 +23,9 @@ public class PostBO {
 	
 	@Autowired
 	private CommentBO commentBO;
+	
+	@Autowired
+	private LikeBO likeBO;
 	
 	//public int getTimeline(int userId, String userName, String content, String imagePath) {
 	public int addPost(int userId, String userNameTest, String content, MultipartFile file) {
@@ -53,8 +57,9 @@ public class PostBO {
 	}*/
 	
 	//public List<Post> getPostList() {
-	public List<PostDetail> getPostList() {
-		
+	//public List<PostDetail> getPostList() {
+	public List<PostDetail> getPostList(int userId) {// PostBO에서 like 처리를 위해 userId 파리미터로 받아 옴 
+				
 		List<Post> postList = postDAO.selectPostList();
 		
 		List<PostDetail> postDetailList = new ArrayList<>();
@@ -66,11 +71,17 @@ public class PostBO {
 			// 해당하는 포스트의 댓글 가져오기
 			List<Comment> commentList = commentBO.getCommentListByPostId(post.getId()); // ★★ commentBO에 명령
 			
+			// post 글 하나당 내가 좋아요 했는지를 체크하기 위해 바로 Like DAO 부르는 건 좋지 않으므로 likeBO, likeDAO 순으로 호출한다
+			// 위 commentList도 post 글 하나당 반복문으로 불러온 것과 마찬가지로 좋아요도 post 글 하나당 좋아요 했는지를 결과로 가져온다
+			boolean likeCheck = likeBO.userLikeCheck(post.getUserId(), post.getId());
+			
+			
 			// post 와 댓글이 매칭  => 두 개 값을 저장할 수 있는 클래스를 post/model 아래에 만든다 (post, 코멘트)
 			PostDetail postDetail = new PostDetail();
 			postDetail.setPost(post);
 			postDetail.setCommentList(commentList);
-		
+			//postDetail.setUserId(userId);// PostBO에서 like 처리를 위해 userId 값 추가 
+			
 			postDetailList.add(postDetail);
 		}
 		

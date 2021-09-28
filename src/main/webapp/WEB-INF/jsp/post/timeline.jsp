@@ -78,9 +78,12 @@
 					<div class=" mb-2">
 						
 						<div class="d-flex justify-content-center">
-							<div class="input-box2 ">
-								<i class="bi bi-suit-heart "></i>
-							</div>
+							<a href="#" class="input-box2 likeBtn" data-post-id="${postDetail.post.id }"><%--# 누르면 상단으로 올라가므로 아래에서 e.preventDefault() 처리 --%>
+								<i class="bi bi-suit-heart mr-1"></i>좋아요 11개
+								<%-- <i class="bi bi-suit-heart likeBtn"></i>--%>
+								<%--id는 한페이지에 한개여서 여러 개면 해당 이벤트도 동작 안 해. 클래스는 여러개도 관계 없어 OK --%>
+								
+							</a>
 						</div>
 						
 						<c:forEach var="comment" items="${postDetail.commentList }"><!-- 이중, 3중 반복문 신경 쓸 필요 없이 그냥 하나의 for 문이야. post 하나에 들어있는 댓글 리스트를 반복시킨다 -->
@@ -187,20 +190,45 @@
 						if(data.result == "success"){
 							//alert("댓글 추가 성공");
 							location.reload();
-							
 						} else {
 							alert("댓글 추가 실패");
 						}
-							
-							
 					},
 					error:function(e){
 						alert("error");//postId : 11, content : 나무가 잘렸네ㅠㅠ
 					}
+				});
+			});
+			
+			$(".likeBtn").on("click",function(e){
+				e.preventDefault();
+				<%--
+				jstl과 ${postDetail.post.id } 과 같은 el tag는 서버에서
+				다 처리되고 (페이지 소스보기에서 post.id 숫자 바뀌는 것으로 확인)
+				그 다음 클라이언트 pc에서 아래 ajax 처리됨
+				-->
+				<%--postId, userId 처리--%>
+				var postId = $(this).data("post-id");
 				
+				$.ajax({
+					type: "get",
+					url: "/post/like",
+					data:{"postId":postId},		
+					success:function(data){
+						if(data.result == "success"){
+							alert("좋아요 성공");
+						}else {
+							alert("좋아요 실패");
+						}
+					},
+					error:function(e){
+						alert("error")
+					}
+						
 				});
 				
 			});
+			
 		});	
 	</script>
 
