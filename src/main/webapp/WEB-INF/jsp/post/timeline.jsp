@@ -50,10 +50,10 @@
 					</div>
 				</div>
 				
-				<!-- 피드 : 행 하나당 피드 전체가반복 되어야 하므로 전체로 반복시킨다 -->
+				<%-- 피드 : 행 하나당 피드 전체가반복 되어야 하므로 전체로 반복시킨다 -->
 				
 				<%--<c:forEach var="post" items="${postList }">--%>
-				<!-- html 주석은 <!---가 아니라 <퍼센트-- 써야 함 -->-->
+				<!-- html 주석은 <!---가 아니라 <퍼센트-- 써야 함 -->
 				<c:forEach var="postDetail" items="${postList }">
 				
 				<div class="border-box1  border border-secondary mb-3">
@@ -75,20 +75,29 @@
 				 	<hr>
 					
 					<!-- 댓글 -->
-					<div class="d-flex justify-content-center mb-2">
-						<c:forEach var="comment" items="${postDetail.commentList }"><!-- 이중, 3중 반복문 신경 쓸 필요 없이 그냥 하나의 for 문이야. post 하나에 들어있는 댓글 리스트를 반복시킨다 -->
-						<div class="input-box2  d-flex justify-content-between">	
-							<!-- 
-							soy_bean 노는 건지 일하는 건지 헷갈릴 때가...<br>
-							carrot_kim 여기가 어디에요?<br>
-							sandy_lee 재밌겠다 ~~ -->
-							<b>${comment.userName }</b> ${comment.content }
-							
-							
+					<div class=" mb-2">
+						
+						<div class="d-flex justify-content-center">
+							<div class="input-box2 ">
+								<i class="bi bi-suit-heart "></i>
+							</div>
 						</div>
+						
+						<c:forEach var="comment" items="${postDetail.commentList }"><!-- 이중, 3중 반복문 신경 쓸 필요 없이 그냥 하나의 for 문이야. post 하나에 들어있는 댓글 리스트를 반복시킨다 -->
+							<div class="d-flex justify-content-center">	
+								<%-- 
+								soy_bean 노는 건지 일하는 건지 헷갈릴 때가...<br>
+								carrot_kim 여기가 어디에요?<br>
+								sandy_lee 재밌겠다 ~~ --%>
+								<div class="input-box2 ">
+								
+									<b>${comment.userName }</b> ${comment.content }<br>
+								</div>
+								
+							</div>
 						</c:forEach>	
 					</div>	
-					<!--  댓글 달기 -->
+					<%--  댓글 달기 --%>
 					
 					
 					<div class="d-flex justify-content-center mb-2">
@@ -99,16 +108,16 @@
 							</div>
 							
 							<div class="col-3 d-flex">
-								<!-- 정답 :  
+								<%-- 정답 : 
 								<input type="text" class="form-control border-0" id="commentInput-${post.id }">
-								<button class="commentBtn" data-post-id="${post.id }">게시</button>-->
-								<!-- data 뒤에 대문자 절대 안 됨 -->
+								<button class="commentBtn" data-post-id="${post.id }">게시</button>--%>
+								<%-- data 뒤에 대문자 절대 안 됨 --%>
 								
 								<button class="btn commentBtn" data-post-id="${postDetail.post.id }" >게시</button>
 							</div>
 						</div>
 					</div>
-					<!--  댓글 달기 -->
+					<%--  댓글 달기 --%>
 				</div >
 				
 				</c:forEach>

@@ -58,13 +58,13 @@ public class PostBO {
 		List<Post> postList = postDAO.selectPostList();
 		
 		List<PostDetail> postDetailList = new ArrayList<>();
-		/*다른 테이블에 해당하는 dao를 바로 호출하는 것은 구조적으로 좋지 않아. bo 부터 호출한다 
+		/*다른 테이블에 해당하는 dao(commentDAO)를 바로 호출하는 것은 구조적으로 좋지 않아. bo 부터 호출한다 
 		 * */
 		
 		// 포스트 하나당 댓글 가져오기
 		for(Post post : postList) {
 			// 해당하는 포스트의 댓글 가져오기
-			List<Comment> commentList = commentBO.getCommentListByPostId(post.getId());
+			List<Comment> commentList = commentBO.getCommentListByPostId(post.getId()); // ★★ commentBO에 명령
 			
 			// post 와 댓글이 매칭  => 두 개 값을 저장할 수 있는 클래스를 post/model 아래에 만든다 (post, 코멘트)
 			PostDetail postDetail = new PostDetail();
