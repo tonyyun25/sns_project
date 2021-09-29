@@ -69,23 +69,43 @@
 					<!-- ★★ 여기에 forEach 문을 통해 timeline 을 보여줘야 한다 ★★ -->
 					<!-- <img width="400" height="300" class="bg-secondary">  -->
 						
-						<img src="${postDetail.post.imagePath }" class="w-100">
+						<img src="${postDetail.post.imagePath }" class="w-100 imageClick">
 					
 										
 				 	<hr>
 					
-					<!-- 댓글 -->
+					<!-- 좋아요 -->
 					<div class=" mb-2">
 						
 						<div class="d-flex justify-content-center">
-							<a href="#" class="input-box2 likeBtn" data-post-id="${postDetail.post.id }"><%--# 누르면 상단으로 올라가므로 아래에서 e.preventDefault() 처리 --%>
-								<i class="bi bi-suit-heart mr-1"></i>좋아요 11개
-								<%-- <i class="bi bi-suit-heart likeBtn"></i>--%>
-								<%--id는 한페이지에 한개여서 여러 개면 해당 이벤트도 동작 안 해. 클래스는 여러개도 관계 없어 OK --%>
-								
-							</a>
+							<div class="input-box2 ">
+								<%-- <a href="#" class="likeBtn" data-post-id="${postDetail.post.id }">--%><%--# 누르면 상단으로 올라가므로 아래에서 e.preventDefault() 처리 --%>
+									
+									<c:choose>
+										<c:when test="${postDetail.like }"><%--이 자체가 true, false이다. postDetail.isLike가 아니라 postDetail.like이다 --%>
+											<%-- <a href="#" class="unlikeBtn" data-post-id="${postDetail.post.id }">--%><%--like 취소를 위해 추가. 페이지소스보기 likeBtn, unlikeBtn
+											사용자한테 보여주는 버튼 자체가 바뀐다--%>
+											<a href="#" class="likeBtn" data-post-id="${postDetail.post.id }"><%--두번째 방법. 바꾸기 귀찮아 둘 다 likeBtn --%>
+											
+												<i class="bi bi-heart-fill heart-icon text-danger "></i>
+											</a><%--like 취소를 위해 추가--%>
+										<%-- <i class="bi bi-suit-heart likeBtn"></i>--%>
+										<%--id는 한페이지에 한개여서 여러 개면 해당 이벤트도 동작 안 해. 클래스는 여러개도 관계 없어 OK --%>
+										</c:when>
+										<c:otherwise>
+											<a href="#" class="likeBtn" data-post-id="${postDetail.post.id }">	<%--like 취소를 위해 추가--%>
+												<i class="bi bi-heart heart-icon text-dark "></i>
+											</a><%--like 취소를 위해 추가--%>
+										</c:otherwise>
+									</c:choose>	
+									
+								</a>
+								<span class="middle-size">좋아요 ${postDetail.likeCount }개</span>
+							</div>	
 						</div>
 						
+						
+						<%-- 댓글 --%>
 						<c:forEach var="comment" items="${postDetail.commentList }"><!-- 이중, 3중 반복문 신경 쓸 필요 없이 그냥 하나의 for 문이야. post 하나에 들어있는 댓글 리스트를 반복시킨다 -->
 							<div class="d-flex justify-content-center">	
 								<%-- 
@@ -216,7 +236,8 @@
 					data:{"postId":postId},		
 					success:function(data){
 						if(data.result == "success"){
-							alert("좋아요 성공");
+							//alert("좋아요 성공");
+							location.reload();
 						}else {
 							alert("좋아요 실패");
 						}
@@ -228,6 +249,52 @@
 				});
 				
 			});
+			<%--좋아요 여부 구분 방법 두 가지
+			1. 클라이언트에서 구분 : 하트가 빨간지 여부 bi-heart-fill과 bi-heart. 각각에 대해 호출하는 컨트롤러를
+			달리한다 => 각 여부에 따라 이벤트를 달리한다
+			단, 문제는 공용으로 id 쓰는 사람은 서로 다른 클라이언트에서 같은 페이지 볼 수 있어. 내 친구가 좋아요 취소 누르면 내가 리프레시 하지 않는 이상
+			좋아요 취소 볼 수 없어 좋아요 취소 다시 누르면 행이 두 개 쌓일 수 있어
+			
+			2. 결과에 대한 판단을 서버에 던지는 방법. 클라이언트는 좋아요 요청만 함 
+			단, 나는 좋아요 상태인데 다른 곳에서 눌러 좋아요 취소 상태가 되면 (서버)
+			또 누르면 다시 좋아요 상태가 됨 => 사용자 헷갈림
+			
+			그래서 최선은 클라이언트, 서버 둘 다 확인해서 처리
+			
+			--%>
+			
+			<%--
+			jstl과 ${postDetail.post.id } 과 같은 el tag는 서버에서
+			다 처리되고 (페이지 소스보기에서 post.id 숫자 바뀌는 것으로 확인)
+			그 다음 클라이언트 pc에서 아래 ajax 처리됨
+			-->
+			<%--postId, userId 처리--%>
+			<%--
+			$(".unlikeBtn").on("click",function(e){
+				e.preventDefault();
+				
+				var postId = $(this).data("post-id");
+				
+				$.ajax({
+					type: "get",
+					url: "/post/unlike",
+					data:{"postId":postId},		
+					success:function(data){
+						if(data.result == "success"){
+							//alert("좋아요 성공");
+							location.reload();
+						}else {
+							alert("좋아요 취소 실패");
+						}
+					},
+					error:function(e){
+						alert("error")
+					}
+						
+				});
+				
+			});
+			--%>
 			
 		});	
 	</script>

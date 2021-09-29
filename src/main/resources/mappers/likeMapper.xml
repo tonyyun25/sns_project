@@ -21,16 +21,36 @@
 		
 	</insert>
 	
-	<select id="userLikeResult" resultType="int" parameterType="int">
+	<delete id="deleteLike" parameterType="map">
+		DELETE FROM
+			`like`	
+		WHERE
+			`postId` = #{postId}
+			AND `userId` = #{userId}
+	
+	</delete>
+	
+	
+	<!-- 파라미터 타입 int 두 개라도 여러 개니까 map -->
+	<select id="selectCountLikeByUserId" resultType="int" parameterType="map">
 		SELECT
-			`id`
-			,`postId`
-			,`userId`
+			count(*)
 			
 		FROM
 			`like`
 		WHERE	
-			`userId`=#{userId}
+			`postId`=#{postId}
+			AND `userId`=#{userId}
+	</select>
+	
+	<select id="selectCountLikeByPostId" resultType="int" parameterType="int">
+		SELECT
+			count(*)
+			
+		FROM
+			`like`
+		WHERE	
+			`postId`=#{postId}
 	</select>
 	
 	

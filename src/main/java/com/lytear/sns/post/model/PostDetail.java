@@ -9,8 +9,26 @@ public class PostDetail {
 
 	private Post post;
 	private List<Comment> commentList;
-	private int userId;// PostBO에서 like 처리를 위해 userId 변수 추가 
+	//private int userId;// PostBO에서 like 처리를 위해 userId 변수 추가 
+	private boolean isLike;
+	private int likeCount;
 	
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+
+	public boolean isLike() {
+		return isLike;
+	}
+
+	public void setLike(boolean isLike) {
+		this.isLike = isLike;
+	}
+
 	public Post getPost() {
 		return post;
 	}
@@ -25,11 +43,5 @@ public class PostDetail {
 		this.commentList = commentList;
 	}
 	
-	public int getUserId() {
-		return userId;
-	}
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-	
+
 }

@@ -35,16 +35,48 @@ public class LikeRestController {
 		
 		Map<String, String> result = new HashMap<>();
 		
-		int count = likeBO.addLike(userId, postId);
+		//int count = likeBO.addLike(userId, postId); //unlike 두 번째 적용 위해 삭제
 		
+		boolean isLike = likeBO.like(userId, postId);
+		
+		if(isLike) {
+			result.put("result","success");
+		} else {
+			result.put("result","fail");
+		}
+		// 위 다섯 줄은 unlike 두 번째 적용 위함
+		
+		/*
 		if(count == 1) {
 			result.put("result","success");
 		} else {
 			result.put("result","fail");
 		}
-		
+		*/
 		return result;
 	}
+	
+	@GetMapping("/unLike")
+	public Map<String, String> unlike(
+			@RequestParam("postId") int postId
+			, HttpServletRequest request
+			){
+		HttpSession session= request.getSession(); 
+		int userId = (Integer)session.getAttribute("userId");
+		
+		Map<String, String> result = new HashMap<>();
+		
+		int count = likeBO.unLike(postId, userId);
+		
+		if(count == 0) {
+			result.put("result","fail");//delete는 행이 두 개 이상 삭제될 수도 있어 count == 1 아니라 count == 0을 명확한 케이스 if로 봄
+		} else {
+			result.put("result","success");
+		}
+		return result;
+		
+	}
+	
 	
 	
 	

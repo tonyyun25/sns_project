@@ -73,13 +73,18 @@ public class PostBO {
 			
 			// post 글 하나당 내가 좋아요 했는지를 체크하기 위해 바로 Like DAO 부르는 건 좋지 않으므로 likeBO, likeDAO 순으로 호출한다
 			// 위 commentList도 post 글 하나당 반복문으로 불러온 것과 마찬가지로 좋아요도 post 글 하나당 좋아요 했는지를 결과로 가져온다
-			boolean likeCheck = likeBO.userLikeCheck(post.getUserId(), post.getId());
+			// 해당하는 포스트를 현재 로그인한 사용자가 좋아요 했는지 확인
+			boolean isLike = likeBO.likeByUserId(userId, post.getId()); 
+			// 해당 포스트에 좋아요 개수
+			int likeCount = likeBO.likeCount(post.getId());// 이정보는 postDetail에 저장되어야 함 => postDetail에 변수 추가
 			
 			
 			// post 와 댓글이 매칭  => 두 개 값을 저장할 수 있는 클래스를 post/model 아래에 만든다 (post, 코멘트)
 			PostDetail postDetail = new PostDetail();
 			postDetail.setPost(post);
 			postDetail.setCommentList(commentList);
+			postDetail.setLike(isLike);
+			postDetail.setLikeCount(likeCount);
 			//postDetail.setUserId(userId);// PostBO에서 like 처리를 위해 userId 값 추가 
 			
 			postDetailList.add(postDetail);
