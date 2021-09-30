@@ -23,6 +23,10 @@ public interface PostDAO {
 
 	public List<Post> selectPostList();
 	
-	
+	public int remove_Post(
+			@Param("id") int id
+			,@Param("content") String content
+			,@Param("userId") int userId
+			);
 	
 }

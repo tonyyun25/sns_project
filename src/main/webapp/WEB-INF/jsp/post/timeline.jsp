@@ -63,7 +63,38 @@
 						<div class="input-box2  d-flex justify-content-between">	
 					
 							<div>${postDetail.post.userName }</div>
-							<div>삭제</div>
+							<div class="more-icon">
+								<a class="text-dark moreBtn" href="#" data-toggle="modal" data-target="#deleteModal"><%-- ★★ class에 moreBtn을 줌 --%>
+									<i class="bi bi-three-dots-vertical"></i>
+									
+									
+									
+									
+									
+									<%-- --%>
+									<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+									  <div class="modal-dialog modal-dialog-centered" role="document">
+									    <div class="modal-content">
+									      
+									      <div class="modal-body text-center">
+									        <a class="deleteBtn" href="#"  data-post-id="${postDetail.post.id }">삭제하기</a>
+									        
+									      </div>
+									    
+									    </div>
+									  </div>
+									</div>
+									<%-- --%>
+									
+									
+									
+									
+									
+									
+									
+								</a>
+							
+							</div>
 						</div>	
 					</div>	
 					<!-- ★★ 여기에 forEach 문을 통해 timeline 을 보여줘야 한다 ★★ -->
@@ -75,6 +106,8 @@
 				 	<hr>
 					
 					<!-- 좋아요 -->
+					${postDetail.post.content }
+					
 					<div class=" mb-2">
 						
 						<div class="d-flex justify-content-center">
@@ -93,8 +126,10 @@
 										<%--id는 한페이지에 한개여서 여러 개면 해당 이벤트도 동작 안 해. 클래스는 여러개도 관계 없어 OK --%>
 										</c:when>
 										<c:otherwise>
-											<a href="#" class="likeBtn" data-post-id="${postDetail.post.id }">	<%--like 취소를 위해 추가--%>
-												<i class="bi bi-heart heart-icon text-dark "></i>
+											<a href="#" class="likeBtn" data-post-id="${postDetail.post.id }" >	<%--like 취소를 위해 추가--%>
+												<i class="bi bi-heart heart-icon text-dark" ></i>
+											
+												
 											</a><%--like 취소를 위해 추가--%>
 										</c:otherwise>
 									</c:choose>	
@@ -148,6 +183,19 @@
 			</div>
 		</section>
 	</div>
+	
+	
+	
+	
+	<!-- Modal 
+	어느 글에 대한 modal 인지 구별
+	방법 1. 각각 더 보기 버튼과 일치하는 modal을 각각 만든다 : 비추
+	2. 더보기 버튼 눌렀을 때 post-id 수를 삽입시킨다
+	
+	-->
+	
+	
+	
 	<script>	
 		$(document).ready(function(){
 			$("#imageUploadBtn").on("click", function(){
@@ -295,6 +343,44 @@
 				
 			});
 			--%>
+			
+			$(".moreBtn").on("click",function(e){
+				e.preventDefault();
+				var postId = $(this).data("post-id");
+				// <a href="#" id="deleteBtn" data-post-id=""></a> // tag를 넣어 속성을 추가하는 것과 같다
+				$("#deleteBtn").data("post-id",postId);
+				
+			});
+				
+				
+			$(".deleteBtn").on("click",function(){	
+				e.preventDefault();
+				alert($(this).data("post-id"));
+				let content = $("#").val().trim();
+				
+				$.ajax({
+					type:"get",	
+					url:"/post/delete",
+					data:{"id":, "content":},
+					success:function(data){
+						if(result.data == "success") {
+							alert("삭제 성공");
+						} else {
+							alert("삭제 실패");
+						}
+					}
+					,error:function(e) {
+						
+					}
+					
+				
+				});
+			
+			});
+			
+			
+			
+			
 			
 		});	
 	</script>

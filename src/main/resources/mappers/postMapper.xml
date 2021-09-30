@@ -44,7 +44,16 @@
 
  	</select>
 
-
+	<delete id="remove_Post" parameterType="map">
+		DELETE FROM
+			`post`
+		WHERE
+			`id`=#{id}
+			AND `content`=#{content}
+			AND `userId`=#{userId}
+	
+	
+	</delete>
 
  	
  	

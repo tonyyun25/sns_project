@@ -95,7 +95,8 @@ public class PostBO {
 		return postDetailList;
 	}
 	
-	
-	
+	public int delete_post (int id, String content, int userId) {
+		return postDAO.remove_Post(id, content, userId);
+	}
 	
 }
