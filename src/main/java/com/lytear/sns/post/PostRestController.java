@@ -64,9 +64,8 @@ public class PostRestController {
 	}
 	
 	@GetMapping("/delete")
-	public Map<String, String> deleteSNS(
-			@RequestParam("id") int id
-			,@RequestParam("content") String content
+	public Map<String, String> delete(
+			@RequestParam("postId") int postId
 			,HttpServletRequest request
 			
 			){
@@ -76,9 +75,7 @@ public class PostRestController {
 		
 		Map<String, String> result = new HashMap<>();
 		
-		int count = postBO.delete_post(id, content, userId);	
-		
-		if(count == 1) {
+		if(postBO.deletePost(postId, userId)) {
 			result.put("result","success");
 		} else {
 			result.put("result","fail");

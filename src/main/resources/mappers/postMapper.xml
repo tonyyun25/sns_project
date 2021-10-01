@@ -44,12 +44,30 @@
 
  	</select>
 
-	<delete id="remove_Post" parameterType="map">
+	<select id="selectPost" parameterType="int" resultType="com.lytear.sns.post.model.Post">
+ 		SELECT
+ 			`id`
+ 			,`userId`
+ 			,`userName`
+ 			,`content`
+ 			,`imagePath`
+ 			,`createdAt`
+ 			,`updatedAt`
+ 		FROM
+ 			`post`
+
+ 		WHERE
+			`id`=#{id}
+ 		
+
+ 	</select>
+
+
+	<delete id="deletePost" parameterType="map">
 		DELETE FROM
 			`post`
 		WHERE
 			`id`=#{id}
-			AND `content`=#{content}
 			AND `userId`=#{userId}
 	
 	

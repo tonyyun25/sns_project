@@ -63,13 +63,13 @@
 						<div class="input-box2  d-flex justify-content-between">	
 					
 							<div>${postDetail.post.userName }</div>
+							
+							
+							<c:if test="${postDetail.post.userId eq userId }"><%--session에 들어있는 userId는 userId 그대로 접근 가능 --%>
+							
 							<div class="more-icon">
 								<a class="text-dark moreBtn" href="#" data-toggle="modal" data-target="#deleteModal"><%-- ★★ class에 moreBtn을 줌 --%>
 									<i class="bi bi-three-dots-vertical"></i>
-									
-									
-									
-									
 									
 									<%-- --%>
 									<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -87,14 +87,10 @@
 									<%-- --%>
 									
 									
-									
-									
-									
-									
-									
 								</a>
 							
 							</div>
+							</c:if>
 						</div>	
 					</div>	
 					<!-- ★★ 여기에 forEach 문을 통해 timeline 을 보여줘야 한다 ★★ -->
@@ -352,28 +348,27 @@
 				
 			});
 				
-				
-			$(".deleteBtn").on("click",function(){	
+			<%-- 이제 modal 창에 post-id가 세팅됨 --%>	
+			$(".deleteBtn").on("click",function(e){	
 				e.preventDefault();
-				alert($(this).data("post-id"));
-				let content = $("#").val().trim();
+				//alert($(this).data("post-id"));
+				var postId = $(this).data("post-id");
 				
 				$.ajax({
 					type:"get",	
 					url:"/post/delete",
-					data:{"id":, "content":},
+					data:{"postId":postId},
 					success:function(data){
 						if(result.data == "success") {
-							alert("삭제 성공");
+							//alert("삭제 성공");
+							location.reload();
 						} else {
 							alert("삭제 실패");
 						}
 					}
 					,error:function(e) {
-						
+						alert("error");
 					}
-					
-				
 				});
 			
 			});
